@@ -19,6 +19,10 @@ df = pd.read_excel(excel_file_path)
 # 엑셀 파일 내 이미지 컬럼명
 urls = df['IMAGE URL COLUMN']
 
+# 다운로드 수
+download_cnt = 0
+
+
 def download_images(url):
     """
     이미지 다운로드 함수
@@ -29,7 +33,11 @@ def download_images(url):
     download_path = download_dir + urlparse(url).path.split("/")[-1]
 
     try:
-        req.urlretrieve(url, download_path)
+        req.urlretrieve(url, download_path) # 이미지 다운로드
+        
+        global download_cnt
+        download_cnt += 1 # 다운로드 횟수 증가
+        
         print(f"{url} download complete")
     except HTTPError as e:
         print(f"HTTP Error: {e}")
@@ -40,7 +48,8 @@ def download_images(url):
 
 
 # 각 URL에 대해 이미지 다운로드 실행
-print("=========== Download Start =========== ")
+print("=========== Download Start ===========")
 for url in urls:
     download_images(url)
-print("=========== Download End =========== ")
+print("=========== Download End ===========")
+print(f"Download {download_cnt} Images Complete!")
