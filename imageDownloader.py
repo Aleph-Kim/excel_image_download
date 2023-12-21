@@ -16,9 +16,8 @@ excel_file_path = 'exam.xlsx'
 # 엑셀 파일에서 URL 추출
 df = pd.read_excel(excel_file_path)
 
-# 열 이름
-urls = df['COLUMN NAME']
-
+# 엑셀 파일 내 이미지 컬럼명
+urls = df['IMAGE URL COLUMN']
 
 def download_images(url):
     """
